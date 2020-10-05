@@ -18,5 +18,12 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+Route::group(['middleware' => 'auth'], function () {
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/cryptos', 'CryptoController@index');
+Route::get('cryptos/create', 'CryptoController@create');
+Route::post('cryptos/create', 'CryptoController@store');
+Route::get('cryptos/{crypto}', 'CryptoController@show');
+Route::get('cryptos/{crypto}/edit', 'CryptoController@edit');
+Route::patch('crypto/{cryptos}/', 'CryptoController@update');
+});
