@@ -27,7 +27,6 @@ class CryptoController extends Controller
             'price' => 'required',
             'description' => 'required',
             'website' => 'required',
-            'category' => 'required',
 
         ]);
 
@@ -37,7 +36,7 @@ class CryptoController extends Controller
         $crypto->price = request('price');
         $crypto->description = request('description');
         $crypto->website = request('website');
-        $crypto->category = request('category');
+        $crypto->classification_id = request('classification');
         $crypto->user_id = Auth::id();
 
         $crypto->save();

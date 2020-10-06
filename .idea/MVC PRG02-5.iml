@@ -10,6 +10,9 @@
       <excludeFolder url="file://$MODULE_DIR$/platform/vendor/brick/math" />
       <excludeFolder url="file://$MODULE_DIR$/platform/vendor/composer" />
       <excludeFolder url="file://$MODULE_DIR$/platform/vendor/dnoegel/php-xdg-base-dir" />
+      <excludeFolder url="file://$MODULE_DIR$/platform/vendor/doctrine/cache" />
+      <excludeFolder url="file://$MODULE_DIR$/platform/vendor/doctrine/dbal" />
+      <excludeFolder url="file://$MODULE_DIR$/platform/vendor/doctrine/event-manager" />
       <excludeFolder url="file://$MODULE_DIR$/platform/vendor/doctrine/inflector" />
       <excludeFolder url="file://$MODULE_DIR$/platform/vendor/doctrine/instantiator" />
       <excludeFolder url="file://$MODULE_DIR$/platform/vendor/doctrine/lexer" />

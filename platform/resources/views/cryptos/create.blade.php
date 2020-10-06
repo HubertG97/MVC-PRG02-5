@@ -20,8 +20,11 @@
                             {{ $errors->first('description') }}
                             <input class="form-control mb-4" type="text" name="website" placeholder="Website">
                             {{ $errors->first('website') }}
-                            <input class="form-control mb-4" type="text" name="category" placeholder="Category">
-                            {{ $errors->first('category') }}
+                            <select class="form-control" name="classification">
+                                @foreach($classifications as $classification)
+                                <option value="{{$classification->id}}">{{$classification->classification}}</option>
+                                @endforeach
+                            </select>
 
                             <br>
                             <button class="btn-light px-3 rounded" type="submit">Submit</button>

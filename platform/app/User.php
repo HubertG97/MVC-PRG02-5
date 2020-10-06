@@ -37,7 +37,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function problems(){
+    public function cryptos(){
         return $this->hasMany(Crypto::class);
+    }
+
+    public function classifications(){
+        return $this->hasMany(Classification::class);
     }
 }

@@ -104,6 +104,9 @@
       <path value="$PROJECT_DIR$/platform/vendor/sebastian/type" />
       <path value="$PROJECT_DIR$/platform/vendor/sebastian/version" />
       <path value="$PROJECT_DIR$/platform/vendor/laravel/ui" />
+      <path value="$PROJECT_DIR$/platform/vendor/doctrine/dbal" />
+      <path value="$PROJECT_DIR$/platform/vendor/doctrine/event-manager" />
+      <path value="$PROJECT_DIR$/platform/vendor/doctrine/cache" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.2" />
