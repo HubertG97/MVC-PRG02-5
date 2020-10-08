@@ -20,7 +20,7 @@ Route::get('/', function () {
 Auth::routes();
 Route::group(['middleware' => 'auth'], function () {
 
-Route::get('/cryptos', 'CryptoController@index');
+Route::get('/home', 'CryptoController@index');
 Route::get('cryptos/create', 'CryptoController@create');
 Route::get('cryptos/create', 'Classificationcontroller@load');
 Route::post('cryptos/create', 'CryptoController@store');
