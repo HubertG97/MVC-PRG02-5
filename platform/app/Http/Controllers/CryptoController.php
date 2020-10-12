@@ -49,11 +49,41 @@ class CryptoController extends Controller
 
         return redirect('/cryptos');
     }
+    public function show(Crypto $crypto){
+
+        return view('cryptos.show', compact('crypto'));
+    }
+
+    public function edit(Crypto $crypto){
+        $classifications = Classification::all();
+        return view('cryptos.edit', compact('crypto', 'classifications'));
+
+    }
+
+    public function update(Crypto $crypto){
+        $data = request()->validate([
+            'name' => 'required',
+            'ticker' => 'required',
+            'price' => 'required',
+            'description' => 'required',
+            'website' => 'required',
+
+        ]);
+        $crypto->name = request('name');
+        $crypto->ticker = request('ticker');
+        $crypto->price = request('price');
+        $crypto->description = request('description');
+        $crypto->website = request('website');
+        $crypto->classification_id = request('classification');
+
+        $crypto->update($data);
+        return redirect('cryptos/' . $crypto->id);
+    }
 
     public function cryptoFilter(Request $request) {
         $classifications = Classification::all();
         $filteredcryptos = Crypto::filter($request)->get();
-        return view ('cryptos/results', compact('filteredcryptos', 'classifications'));
+        return view ('cryptos.results', compact('filteredcryptos', 'classifications'));
     }
 
 

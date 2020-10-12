@@ -17,7 +17,7 @@
             <div class="col-md-8">
                 @foreach($filteredcryptos as $filteredcrypto)
                     <div class="card">
-                        <div class="card-header flex justify-between"><p>{{$filteredcrypto->name}}</p><p><a href="/problems/{{ $filteredcrypto->id }}/edit">Edit</a></p></div>
+                        <div class="card-header flex justify-between"><p>{{$filteredcrypto->name}}</p><p><a href="/cryptos/{{ $filteredcrypto->id }}/edit">Edit</a></p></div>
                         <div class="card-body">
                             <p><strong>Ticker:</strong> {{$filteredcrypto->ticker}}</p>
                             <p><strong>Description:</strong> {{$filteredcrypto->description}}</p>
