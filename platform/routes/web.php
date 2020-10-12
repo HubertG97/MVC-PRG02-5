@@ -21,12 +21,15 @@ Auth::routes();
 Route::group(['middleware' => 'auth'], function () {
 
 Route::get('/home', 'CryptoController@index');
+Route::get('/crypto-filter', 'CryptoController@CryptoFilter');
 Route::get('cryptos/create', 'CryptoController@create');
 Route::get('cryptos/create', 'Classificationcontroller@load');
 Route::post('cryptos/create', 'CryptoController@store');
 Route::get('cryptos/{crypto}', 'CryptoController@show');
 Route::get('cryptos/{crypto}/edit', 'CryptoController@edit');
 Route::patch('crypto/{cryptos}/', 'CryptoController@update');
+
+
 
 Route::get('classifications/create', 'ClassificationController@create');
 Route::post('classifications/create', 'ClassificationController@store');

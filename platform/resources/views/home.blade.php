@@ -3,6 +3,17 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
+        <form action="/crypto-filter?classification_id=" method="get" class="pb-5">
+            <select class="form-control" name="classification">
+                @foreach($classifications as $classification)
+                    <option value="{{$classification->id}}">{{$classification->classification}}</option>
+                @endforeach
+            </select>
+
+            <br>
+            <button class="btn-light px-3 rounded" type="submit">Search</button>
+            @csrf
+        </form>
         <div class="col-md-8">
             @foreach($allcryptos as $crypto)
                 <div class="card">

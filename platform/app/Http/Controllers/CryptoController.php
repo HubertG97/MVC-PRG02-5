@@ -2,15 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Classification;
 use App\Crypto;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Filters\CryptoFilter;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class CryptoController extends Controller
 {
     public function index(){
         $allcryptos = Crypto::all();
-        return view('home', ['allcryptos' => $allcryptos]);
+        $classifications = Classification::all();
+        return view('home', ['allcryptos' => $allcryptos, 'classifications' => $classifications]);
     }
 
     public function create()
@@ -43,4 +49,12 @@ class CryptoController extends Controller
 
         return redirect('/cryptos');
     }
+
+    public function cryptoFilter(Request $request) {
+        $classifications = Classification::all();
+        $filteredcryptos = Crypto::filter($request)->get();
+        return view ('cryptos/results', compact('filteredcryptos', 'classifications'));
+    }
+
+
 }

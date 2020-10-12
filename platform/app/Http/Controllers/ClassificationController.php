@@ -3,14 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Classification;
+use App\Crypto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ClassificationController extends Controller
 {
     public function index(){
-        $all_classifications = Classification::all();
-        return view('home', ['all_classifications' => $all_classifications]);
+        $classifications = Classification::all();
+        return view('home', compact('classifications'));
     }
 
     public function create()
@@ -40,4 +41,6 @@ class ClassificationController extends Controller
         $classifications = Classification::all();
         return view('cryptos.create', compact('classifications'));
     }
+
+
 }

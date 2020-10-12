@@ -176,7 +176,7 @@
       <workItem from="1600675194979" duration="1673000" />
       <workItem from="1600871252672" duration="8735000" />
       <workItem from="1601760370869" duration="186000" />
-      <workItem from="1601936014455" duration="10511000" />
+      <workItem from="1601936014455" duration="20010000" />
     </task>
     <servers />
   </component>
@@ -196,17 +196,22 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="578" y="262" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1602010336903">
+    <state x="581" y="247" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1602456654814">
       <screen x="0" y="25" width="1680" height="956" />
     </state>
-    <state x="578" y="260" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1601329988312" />
+    <state x="581" y="247" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.25.1680.956@0.25.1680.956" timestamp="1602456654814" />
+    <state x="578" y="260" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1602509144355">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="578" y="260" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1602509144355" />
     <state x="578" y="262" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.25.1680.956@0.25.1680.956" timestamp="1602010336903" />
-    <state x="578" y="263" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.25.1680.960@0.25.1680.960" timestamp="1601326225763" />
-    <state x="504" y="229" key="NewPhpClassDialog" timestamp="1602188162006">
-      <screen x="0" y="25" width="1680" height="953" />
+    <state x="578" y="263" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.25.1680.960@0.25.1680.960" timestamp="1602505079316" />
+    <state x="504" y="230" key="NewPhpClassDialog" timestamp="1602455036382">
+      <screen x="0" y="25" width="1680" height="956" />
     </state>
     <state x="504" y="227" key="NewPhpClassDialog/0.25.1680.945@0.25.1680.945" timestamp="1601936310409" />
     <state x="504" y="229" key="NewPhpClassDialog/0.25.1680.953@0.25.1680.953" timestamp="1602188162006" />
+    <state x="504" y="230" key="NewPhpClassDialog/0.25.1680.956@0.25.1680.956" timestamp="1602455036382" />
     <state x="505" y="233" width="670" height="676" key="search.everywhere.popup" timestamp="1600985051615">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>

@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Filters\CryptoFilter;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 class Crypto extends Model
@@ -14,5 +16,10 @@ class Crypto extends Model
 
     public function Classification(){
         return $this->belongsTo(Classification::class);
+    }
+
+    public function scopeFilter(Builder $builder, $request)
+    {
+        return (new CryptoFilter($request))->filter($builder);
     }
 }
