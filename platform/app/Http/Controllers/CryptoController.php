@@ -47,7 +47,7 @@ class CryptoController extends Controller
 
         $crypto->save();
 
-        return redirect('/cryptos');
+        return redirect('/home');
     }
     public function show(Crypto $crypto){
 
@@ -78,6 +78,12 @@ class CryptoController extends Controller
 
         $crypto->update($data);
         return redirect('cryptos/' . $crypto->id);
+    }
+
+    public function delete(Crypto $crypto){
+        Crypto::where('id', $crypto->id)->delete();
+
+        return redirect('/home');
     }
 
     public function cryptoFilter(Request $request) {

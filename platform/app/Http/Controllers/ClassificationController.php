@@ -37,6 +37,7 @@ class ClassificationController extends Controller
         return redirect('/classifications');
     }
 
+
     public function load(){
         $classifications = Classification::all();
         return view('cryptos.create', compact('classifications'));

@@ -28,7 +28,7 @@ Route::post('cryptos/create', 'CryptoController@store');
 Route::get('cryptos/{crypto}', 'CryptoController@show');
 Route::get('cryptos/{crypto}/edit', 'CryptoController@edit');
 Route::patch('cryptos/{crypto}/', 'CryptoController@update');
-
+Route::get('cryptos/{crypto}/delete', 'CryptoController@delete');
 
 
 Route::get('classifications/create', 'ClassificationController@create');
