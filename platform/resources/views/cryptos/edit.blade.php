@@ -5,8 +5,8 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Edit crypto</div>
-                    <p><a href="/cryptos/{{ $crypto->id }}/delete">Delete</a></p>
+                    <div class="card-header">Edit crypto <p><a href="/cryptos/{{ $crypto->id }}/delete">Delete</a></p></div>
+
                     <div class="card-body">
                         <form action="/cryptos/{{ $crypto->id }}/" method="post" class="pb-5">
                             @method('PATCH')

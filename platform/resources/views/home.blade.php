@@ -24,7 +24,18 @@
                         <p><strong>Website:</strong> {{$crypto->website}}</p>
                         <p><strong>Classification:</strong>{{$crypto->classification->classification}} </p>
                     </div>
-
+                    <form method="post">
+                        <input class="form-control mb-4 d-none" type="text" name="crypto_id" value="{{$crypto->id}}">
+                        <input type="checkbox" class="form-control mb-4 d-none" name="checker" value=1 checked="checked">
+                        <button class="btn-light px-3 rounded" type="submit">Gem</button>
+                        @csrf
+                    </form>
+                    <form method="post">
+                        <input class="form-control mb-4 d-none" type="text" name="crypto_id" value="{{$crypto->id}}">
+                        <input type="checkbox" class="form-control mb-4 d-none" name="checker" value=0 checked="checked">
+                        <button class="btn-light px-3 rounded" type="submit">Scam</button>
+                        @csrf
+                    </form>
                 </div>
             @endforeach
         </div>

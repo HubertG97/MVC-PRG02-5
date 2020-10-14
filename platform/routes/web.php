@@ -21,6 +21,8 @@ Auth::routes();
 Route::group(['middleware' => 'auth'], function () {
 
 Route::get('/home', 'CryptoController@index');
+Route::post('/home', 'RatingController@create');
+
 Route::get('/crypto-filter', 'CryptoController@CryptoFilter');
 
 Route::get('cryptos/create', 'ClassificationController@load');

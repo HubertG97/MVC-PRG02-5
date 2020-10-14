@@ -18,6 +18,10 @@ class Crypto extends Model
         return $this->belongsTo(Classification::class);
     }
 
+    public function Rating(){
+        return $this->hasMany(Rating::class);
+    }
+
     public function scopeFilter(Builder $builder, $request)
     {
         return (new CryptoFilter($request))->filter($builder);

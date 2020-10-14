@@ -44,4 +44,8 @@ class User extends Authenticatable
     public function classifications(){
         return $this->hasMany(Classification::class);
     }
+
+    public function Rating(){
+        return $this->hasMany(Rating::class);
+    }
 }
