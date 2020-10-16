@@ -16,7 +16,9 @@ class CryptoController extends Controller
     public function index(){
         $allcryptos = Crypto::all();
         $classifications = Classification::all();
-        return view('home', ['allcryptos' => $allcryptos, 'classifications' => $classifications]);
+        $gem = 0;
+        $scam = 0;
+        return view('home', ['allcryptos' => $allcryptos, 'classifications' => $classifications, 'gem' => $gem, 'scam' =>$scam]);
     }
 
     public function create()
