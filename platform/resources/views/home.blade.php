@@ -29,10 +29,13 @@
                         <input type="checkbox" class="form-control mb-4 d-none" name="checker" value=1 checked="checked">
                         <button class="btn-light px-3 rounded" type="submit">Gem
                             @foreach($crypto->rating as $rating)
+                                @php $gem1 = 0 @endphp
                                 @if ($rating->rating == true)
-                                    @php $gem += 1 @endphp
+                                    @php
+                                    $gem1 +=1
+                                    @endphp
                                 @endif
-                            @endforeach {{$gem}}</button>
+                            @endforeach {{$gem1}}</button>
 
                         @csrf
                     </form>
@@ -41,10 +44,13 @@
                         <input type="checkbox" class="form-control mb-4 d-none" name="checker" value=0 checked="checked">
                         <button class="btn-light px-3 rounded" type="submit">Scam
                             @foreach($crypto->rating as $rating)
+                                @php $scam1 = 0 @endphp
                                 @if ($rating->rating == false)
-                                    @php $scam += 1 @endphp
+                                    @php
+                                    $scam1 += 1
+                                    @endphp
                                 @endif
-                            @endforeach {{$scam}}</button>
+                            @endforeach {{$scam1}}</button>
                         @csrf
                     </form>
                 </div>
