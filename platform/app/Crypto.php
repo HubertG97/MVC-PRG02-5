@@ -23,7 +23,7 @@ class Crypto extends Model
     }
 
     public function RatingCount(){
-        return $this->hasMany(RatingCount::class);
+        return $this->hasOne(RatingCount::class);
     }
 
     public function scopeFilter(Builder $builder, $request)
