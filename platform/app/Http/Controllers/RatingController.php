@@ -22,8 +22,8 @@ class RatingController extends Controller
 
         if ($checkRating->exists() && $checkRatingCount->exists()) {
 
-            $this->updateCount($checkRatingCount->first(), $checkRating->first());
-            $this->update($checkRating->first());
+
+            $this->update($checkRating->first(), $checkRatingCount->first());
 
         }else if (!($checkRating->exists())){
             $rating = new Rating();
@@ -43,35 +43,58 @@ class RatingController extends Controller
     public function createRatingCount(){
         $ratingCount = new RatingCount();
         $ratingCount->crypto_id = request('crypto_id');
+        $gemResults = Rating::where([
+            ['crypto_id', '=', request('crypto_id')],
+            ['rating', '=', true],
+        ])->get();
+        $scamResults = Rating::where([
+            ['crypto_id', '=', request('crypto_id')],
+            ['rating', '=', false],
+        ])->get();
 
-        if (request('checker') == true){
-            $ratingCount->gem_count = 1;
-        }else if (request('checker') == false){
-            $ratingCount->scam_count = 1;
+        if($gemResults){
+            $gemCount = count($gemResults);
+        } else {
+            $gemCount = 0;
         }
 
+        if ($scamResults){
+            $scamCount = count($scamResults);
+        } else {
+            $scamCount = 0;
+        }
+
+        $ratingCount->gem_count = $gemCount;
+        $ratingCount->scam_count = $scamCount;
         $ratingCount->save();
 
     }
 
-    public function update(Rating $rating){
+    public function update(Rating $rating, RatingCount $ratingCount){
         $rating->rating = request('checker');
         $rating->update();
+        $this->updateCount($ratingCount);
         return $rating;
     }
 
-    public function updateCount(RatingCount $ratingCount, Rating $rating){
+    public function updateCount(RatingCount $ratingCount){
 
-        if (request('checker') == true && $rating->rating == false){
-            $ratingCount->gem_count = $ratingCount->gem_count + 1;
-            $ratingCount->scam_count = $ratingCount->scam_count - 1;
-        }else if (request('checker') == false && $rating->rating == true){
-            $ratingCount->gem_count = $ratingCount->gem_count - 1;
-            $ratingCount->scam_count = $ratingCount->scam_count + 1;
-        }
+        $gemResults = Rating::where([
+            ['crypto_id', '=', request('crypto_id')],
+            ['rating', '=', true],
+        ])->get();
+        $scamResults = Rating::where([
+            ['crypto_id', '=', request('crypto_id')],
+            ['rating', '=', false],
+        ])->get();
+        $ratingCount->crypto_id = request('crypto_id');
+        $gemCount = count($gemResults);
+        $scamCount = count($scamResults);
+        $ratingCount->gem_count = $gemCount;
+        $ratingCount->scam_count = $scamCount;
 
 
-        $rating->update();
+        $ratingCount->save();
         return redirect('/home' );
     }
 
