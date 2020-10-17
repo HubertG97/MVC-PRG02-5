@@ -13,4 +13,8 @@ class Rating extends Model
     public function crypto(){
         return $this->belongsTo(Crypto::class);
     }
+
+    public function ratingCount(){
+        return $this->hasOne(RatingCount::class);
+    }
 }

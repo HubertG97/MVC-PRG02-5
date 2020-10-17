@@ -27,30 +27,14 @@
                     <form method="post">
                         <input class="form-control mb-4 d-none" type="text" name="crypto_id" value="{{$crypto->id}}">
                         <input type="checkbox" class="form-control mb-4 d-none" name="checker" value=1 checked="checked">
-                        <button class="btn-light px-3 rounded" type="submit">Gem
-                            @foreach($crypto->rating as $rating)
-                                @php $gem1 = 0 @endphp
-                                @if ($rating->rating == true)
-                                    @php
-                                    $gem1 +=1
-                                    @endphp
-                                @endif
-                            @endforeach {{$gem1}}</button>
+                        <button class="btn-light px-3 rounded" type="submit">Gem</button>
 
                         @csrf
                     </form>
                     <form method="post">
                         <input class="form-control mb-4 d-none" type="text" name="crypto_id" value="{{$crypto->id}}">
                         <input type="checkbox" class="form-control mb-4 d-none" name="checker" value=0 checked="checked">
-                        <button class="btn-light px-3 rounded" type="submit">Scam
-                            @foreach($crypto->rating as $rating)
-                                @php $scam1 = 0 @endphp
-                                @if ($rating->rating == false)
-                                    @php
-                                    $scam1 += 1
-                                    @endphp
-                                @endif
-                            @endforeach {{$scam1}}</button>
+                        <button class="btn-light px-3 rounded" type="submit">Scam</button>
                         @csrf
                     </form>
                 </div>
