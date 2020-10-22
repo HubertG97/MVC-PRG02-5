@@ -73,6 +73,8 @@ class RatingController extends Controller
     public function update(Rating $rating, RatingCount $ratingCount){
         $rating->rating = request('checker');
         $rating->update();
+        $promotionChecker = new RoleController();
+        $promotionChecker->rolePromotion();
         $this->updateCount($ratingCount);
         return $rating;
     }
