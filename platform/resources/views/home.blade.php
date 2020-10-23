@@ -15,7 +15,7 @@
             @csrf
         </form>
         <div class="col-md-8">
-            @foreach($allcryptos as $crypto)
+            @foreach($visible_cryptos as $crypto)
                 <div class="card">
                     <div class="card-header flex justify-between"><p>{{$crypto->name}}</p><p><a href="/cryptos/{{ $crypto->id }}/edit">Edit</a></p></div>
                     <div class="card-body">

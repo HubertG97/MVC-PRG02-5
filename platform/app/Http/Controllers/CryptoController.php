@@ -14,12 +14,30 @@ use Illuminate\Database\Eloquent\Builder;
 class CryptoController extends Controller
 {
     public function index(){
-        $allcryptos = Crypto::all();
+        $visible_cryptos = Crypto::where([
+            ['visible', '=', true],
+        ]);
 
         $classifications = Classification::all();
 
 
-        return view('home', ['allcryptos' => $allcryptos, 'classifications' => $classifications]);
+        return view('home', ['visible_cryptos' => $visible_cryptos, 'classifications' => $classifications]);
+    }
+
+    public function review(){
+
+        $all_cryptos = Crypto::orderBy('visible', 'desc')->latest()->get();
+
+        return view('cryptos.review', ['all_cryptos' => $all_cryptos]);
+    }
+
+    public function visibility(Crypto $crypto){
+        $crypto_visibility = !($crypto->visible);
+        Crypto::where([
+            ['id', '=', $crypto->id],
+        ])->update(['visible' => 1]);
+
+        return $this->review();
     }
 
     public function create()
