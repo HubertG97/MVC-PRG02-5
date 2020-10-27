@@ -19,6 +19,7 @@
                     <div class="card">
                         <div class="card-header flex justify-between"><p>{{$crypto->name}}</p><p><a href="/cryptos/{{ $crypto->id }}/edit">Edit</a></p>
                             <form method="post">
+                                @method('PATCH')
                                 <input class="form-control mb-4 d-none" type="text" name="crypto_id" value="{{$crypto->id}}">
 
                                 <button class="btn-light px-3 rounded" type="submit">@if($crypto->visible)Make invisible @else Make visible @endif</button>

@@ -15,8 +15,8 @@ class CryptoController extends Controller
 {
     public function index(){
         $visible_cryptos = Crypto::where([
-            ['visible', '=', true],
-        ]);
+            ['visible', '=', 1],
+        ])->get();
 
         $classifications = Classification::all();
 
@@ -31,12 +31,15 @@ class CryptoController extends Controller
         return view('cryptos.review', ['all_cryptos' => $all_cryptos]);
     }
 
-    public function visibility(Crypto $crypto){
-        $crypto_visibility = !($crypto->visible);
-        Crypto::where([
-            ['id', '=', $crypto->id],
-        ])->update(['visible' => 1]);
+    public function visibility(){
+        $crypto_id = request('crypto_id');
 
+        $crypto = Crypto::where([
+            ['id', '=', $crypto_id],
+        ])->first();
+        $crypto_visibility = !($crypto->visible);
+        $crypto->visible = $crypto_visibility;
+        $crypto->save();
         return $this->review();
     }
 

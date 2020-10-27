@@ -28,7 +28,7 @@ Route::get('/crypto-filter', 'CryptoController@CryptoFilter');
 Route::get('cryptos/create', 'ClassificationController@load')->middleware('role:author,admin');
 Route::post('cryptos/create', 'CryptoController@store')->middleware('role:author,admin');
 Route::get('cryptos/review', 'CryptoController@review')->middleware('role:admin');
-Route::post('cryptos/review', 'CryptoController@visibility')->middleware('role:admin');
+Route::patch('cryptos/review', 'CryptoController@visibility')->middleware('role:admin');
 Route::get('cryptos/{crypto}', 'CryptoController@show');
 Route::get('cryptos/{crypto}/edit', 'CryptoController@edit');
 Route::patch('cryptos/{crypto}/', 'CryptoController@update');
