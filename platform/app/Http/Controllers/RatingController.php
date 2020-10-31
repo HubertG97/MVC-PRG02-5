@@ -7,6 +7,7 @@ use App\RatingCount;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use phpDocumentor\Reflection\Types\Integer;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class RatingController extends Controller
 {
@@ -75,11 +76,11 @@ class RatingController extends Controller
         $rating->update();
         $promotionChecker = new RoleController();
         $promotionChecker->rolePromotion();
-        $this->updateCount($ratingCount);
+        $this->updateCount($ratingCount, $rating);
         return $rating;
     }
 
-    public function updateCount(RatingCount $ratingCount){
+    public function updateCount(RatingCount $ratingCount, Rating $rating){
 
         $gemResults = Rating::where([
             ['crypto_id', '=', request('crypto_id')],
@@ -97,6 +98,13 @@ class RatingController extends Controller
 
 
         $ratingCount->save();
+        $rating_boolean = $rating->rating;
+        if($rating_boolean == 1){
+            $rating_name = 'gem';
+        }else {
+            $rating_name = 'scam';
+        }
+        toast('Rated crypto as '.$rating_name. '','success')->position('top-end')->autoClose(2000);
         return redirect('/home' );
     }
 

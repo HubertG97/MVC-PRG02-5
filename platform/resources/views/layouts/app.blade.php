@@ -11,6 +11,9 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -22,10 +25,12 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
+
+
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand" href="{{ url('/home') }}">
                     {{ config('app.name', 'Gem or Scam') }}
                 </a>
                 <a class="navbar" href="{{ url('/cryptos/create/') }}">
@@ -33,6 +38,9 @@
                 </a>
                 <a class="navbar" href="{{ url('/classifications/create/') }}">
                     Add Classification
+                </a>
+                <a class="navbar" href="{{ url('/cryptos/review') }}">
+                    Review Crypto
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -82,7 +90,10 @@
 
         <main class="py-4">
             @yield('content')
+
         </main>
     </div>
+    @include('sweetalert::alert')
+
 </body>
 </html>

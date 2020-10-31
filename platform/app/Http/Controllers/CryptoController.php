@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Filters\CryptoFilter;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class CryptoController extends Controller
 {
@@ -76,10 +77,10 @@ class CryptoController extends Controller
             $crypto->logo_url = $image_name;
 
         }else{
-            $crypto->logo_url = 'no_image.jpg';
+            $crypto->logo_url = 'no_image.png';
         }
         $crypto->save();
-
+        toast('Crypto successfully submitted!','success')->position('top-end')->autoClose(3000);
         return redirect('/home');
     }
     public function show(Crypto $crypto){
@@ -100,6 +101,7 @@ class CryptoController extends Controller
             'price' => 'required',
             'description' => 'required',
             'website' => 'required',
+            'logo_url' => 'mimes:jpeg,png|max:1024',
 
         ]);
         $crypto->name = request('name');
@@ -109,7 +111,14 @@ class CryptoController extends Controller
         $crypto->website = request('website');
         $crypto->classification_id = request('classification');
 
+        if (request()->hasFile('image')){
+            $image_name = time().'.'.request('image')->extension();
+            request()->file('image')->move(public_path('image/logo'), $image_name);
+            $crypto->logo_url = $image_name;
+        }
+
         $crypto->update($data);
+        toast('Crypto successfully updated!','success')->position('top-end')->autoClose(3000);
         return redirect('cryptos/' . $crypto->id);
     }
 

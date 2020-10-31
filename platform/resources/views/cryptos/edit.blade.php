@@ -8,7 +8,7 @@
                     <div class="card-header">Edit crypto <p><a href="/cryptos/{{ $crypto->id }}/delete">Delete</a></p></div>
 
                     <div class="card-body">
-                        <form action="/cryptos/{{ $crypto->id }}/" method="post" class="pb-5">
+                        <form action="/cryptos/{{ $crypto->id }}/" method="post" enctype="multipart/form-data" class="pb-5">
                             @method('PATCH')
                             <input class="form-control mb-4" type="text" name="name" placeholder="Name" value="{{$crypto->name}}">
                             {{ $errors->first('name') }}
@@ -21,6 +21,8 @@
                             {{ $errors->first('description') }}
                             <input class="form-control mb-4" type="text" name="website" placeholder="Website" value="{{$crypto->website}}">
                             {{ $errors->first('website') }}
+                            <label>Logo</label>
+                            <input class="form-control mb-4" type="file" name="image">
                             <select class="form-control" name="classification">
                                 @foreach($classifications as $classification)
                                     <option value="{{$classification->id}}">{{$classification->classification}}</option>
