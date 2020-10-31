@@ -8,7 +8,7 @@
                     <div class="card-header">Add a cryptocurrency</div>
 
                     <div class="card-body">
-                        <form action="" method="post" class="pb-5">
+                        <form action="" method="post" class="pb-5" enctype="multipart/form-data">
                             <input class="form-control mb-4" type="text" name="name" placeholder="Name">
                             {{ $errors->first('name') }}
                             <input class="form-control mb-4" type="text" name="ticker" placeholder="Ticker">
@@ -20,6 +20,8 @@
                             {{ $errors->first('description') }}
                             <input class="form-control mb-4" type="text" name="website" placeholder="Website">
                             {{ $errors->first('website') }}
+                            <label>Logo</label>
+                            <input class="form-control mb-4" type="file" name="image">
                             <select class="form-control" name="classification">
                                 @foreach($classifications as $classification)
                                 <option value="{{$classification->id}}">{{$classification->classification}}</option>

@@ -57,6 +57,7 @@ class CryptoController extends Controller
             'price' => 'required',
             'description' => 'required',
             'website' => 'required',
+            'image' => 'mimes:jpeg,png|max:1024',
 
         ]);
 
@@ -69,6 +70,14 @@ class CryptoController extends Controller
         $crypto->classification_id = request('classification');
         $crypto->user_id = Auth::id();
 
+        if (request()->hasFile('image')){
+            $image_name = time().'.'.request('image')->extension();
+            request()->file('image')->move(public_path('image/logo'), $image_name);
+            $crypto->logo_url = $image_name;
+
+        }else{
+            $crypto->logo_url = 'no_image.jpg';
+        }
         $crypto->save();
 
         return redirect('/home');
