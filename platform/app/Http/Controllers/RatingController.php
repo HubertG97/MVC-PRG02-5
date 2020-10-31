@@ -21,12 +21,13 @@ class RatingController extends Controller
             ['crypto_id', '=', request('crypto_id')],
         ]);
 
+        //check if rating and rating count exists
         if ($checkRating->exists() && $checkRatingCount->exists()) {
 
 
             $this->update($checkRating->first(), $checkRatingCount->first());
 
-        }else if (!($checkRating->exists())){
+        }else if (!($checkRating->exists()) && !$checkRatingCount->exists()){
             $rating = new Rating();
             $rating->crypto_id = request('crypto_id');
             $rating->user_id = Auth::id();
@@ -34,6 +35,13 @@ class RatingController extends Controller
             $rating->save();
             $this->createRatingCount();
 
+        }else if (!($checkRating->exists())){
+            $rating = new Rating();
+            $rating->crypto_id = request('crypto_id');
+            $rating->user_id = Auth::id();
+            $rating->rating = request('checker');
+            $rating->save();
+            $this->updateCount($rating);
         }
 
 
@@ -68,19 +76,26 @@ class RatingController extends Controller
         $ratingCount->gem_count = $gemCount;
         $ratingCount->scam_count = $scamCount;
         $ratingCount->save();
-
+        $rating_boolean = request('rating');
+        if($rating_boolean == 1){
+            $rating_name = 'gem';
+        }else {
+            $rating_name = 'scam';
+        }
+        toast('Rated crypto as '.$rating_name. '','success')->position('top-end')->autoClose(2000);
     }
 
-    public function update(Rating $rating, RatingCount $ratingCount){
+    public function update(Rating $rating){
         $rating->rating = request('checker');
         $rating->update();
+        $this->updateCount($rating);
         $promotionChecker = new RoleController();
         $promotionChecker->rolePromotion();
-        $this->updateCount($ratingCount, $rating);
+
         return $rating;
     }
 
-    public function updateCount(RatingCount $ratingCount, Rating $rating){
+    public function updateCount(Rating $rating){
 
         $gemResults = Rating::where([
             ['crypto_id', '=', request('crypto_id')],
@@ -90,14 +105,15 @@ class RatingController extends Controller
             ['crypto_id', '=', request('crypto_id')],
             ['rating', '=', false],
         ])->get();
-        $ratingCount->crypto_id = request('crypto_id');
+
+
         $gemCount = count($gemResults);
         $scamCount = count($scamResults);
-        $ratingCount->gem_count = $gemCount;
-        $ratingCount->scam_count = $scamCount;
 
+        RatingCount::where([
+            ['crypto_id', '=', request('crypto_id')],
+        ])->update(['gem_count' => $gemCount, 'scam_count' => $scamCount] );
 
-        $ratingCount->save();
         $rating_boolean = $rating->rating;
         if($rating_boolean == 1){
             $rating_name = 'gem';

@@ -80,6 +80,7 @@ class CryptoController extends Controller
             $crypto->logo_url = 'no_image.png';
         }
         $crypto->save();
+        $this->createRatingCount();
         toast('Crypto successfully submitted!','success')->position('top-end')->autoClose(3000);
         return redirect('/home');
     }
