@@ -51,7 +51,7 @@ class User extends Authenticatable
         return $this->hasMany(Rating::class);
     }
 
-    public function role(){
+    public function Role(){
         return $this->hasOne(Role::class);
     }
 
@@ -64,5 +64,15 @@ class User extends Authenticatable
         }
 
 
+    }
+    public function roleName(int $role_id){
+        $user_role = Role::where('id', $role_id)->value('name');
+        return $user_role;
+    }
+
+    public function postCount(){
+        $posted_crypto = Crypto::where('user_id', $this->id)->get();
+        $posted_count = count($posted_crypto);
+        return $posted_count;
     }
 }

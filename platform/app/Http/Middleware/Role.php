@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class Role
 {
@@ -24,6 +25,8 @@ class Role
             if($user->checkRole($role))
                 return $next($request);
         }
+        Alert::error('Not Authorized', 'You are not allowed to go there at this moment')->autoClose(2000);
+
 
         return redirect('/home');
     }

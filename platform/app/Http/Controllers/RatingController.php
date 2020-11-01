@@ -25,7 +25,7 @@ class RatingController extends Controller
         if ($checkRating->exists() && $checkRatingCount->exists()) {
 
 
-            $this->update($checkRating->first(), $checkRatingCount->first());
+            $this->update($checkRating->first());
 
         }else if (!($checkRating->exists()) && !$checkRatingCount->exists()){
             $rating = new Rating();
@@ -90,7 +90,9 @@ class RatingController extends Controller
         $rating->update();
         $this->updateCount($rating);
         $promotionChecker = new RoleController();
-        $promotionChecker->rolePromotion();
+        if($promotionChecker->rolePromotion() === true){
+            Alert::success('You are now an author', 'Go to add crypto to add crypto yourself')->autoClose(5000);
+        };
 
         return $rating;
     }

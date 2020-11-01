@@ -27,7 +27,7 @@ class CryptoController extends Controller
 
     public function review(){
 
-        $all_cryptos = Crypto::orderBy('visible', 'desc')->latest()->get();
+        $all_cryptos = Crypto::orderBy('visible')->latest()->get();
 
         return view('cryptos.review', ['all_cryptos' => $all_cryptos]);
     }
@@ -41,7 +41,14 @@ class CryptoController extends Controller
         $crypto_visibility = !($crypto->visible);
         $crypto->visible = $crypto_visibility;
         $crypto->save();
+        if ($crypto_visibility == 0){
+            $visibility_name = 'invisible';
+        }else{
+            $visibility_name = 'visible';
+        }
+        toast('Crypto successfully made '.$visibility_name. '','success')->position('top-end')->autoClose(3000);
         return $this->review();
+
     }
 
     public function create()

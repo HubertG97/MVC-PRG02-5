@@ -35,7 +35,7 @@ Route::get('cryptos/{crypto}/edit', 'CryptoController@edit');
 Route::patch('cryptos/{crypto}/', 'CryptoController@update');
 Route::get('cryptos/{crypto}/delete', 'CryptoController@delete');
 
-
+route::get('users/all', 'UserController@index')->middleware('role:admin');
 
 Route::get('classifications/create', 'ClassificationController@create');
 Route::post('classifications/create', 'ClassificationController@store');
