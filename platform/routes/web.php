@@ -25,7 +25,7 @@ Route::get('/home', 'CryptoController@index');
 Route::post('/home', 'RatingController@create');
 
 Route::get('/crypto-filter', 'CryptoController@CryptoFilter');
-
+Route::post('/crypto-filter', 'RatingController@create');
 Route::get('cryptos/create', 'ClassificationController@load')->middleware('role:author,admin');
 Route::post('cryptos/create', 'CryptoController@store')->middleware('role:author,admin');
 Route::get('cryptos/review', 'CryptoController@review')->middleware('role:admin');

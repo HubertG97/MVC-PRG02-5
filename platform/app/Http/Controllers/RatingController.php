@@ -46,7 +46,7 @@ class RatingController extends Controller
 
 
 
-        return redirect('/home');
+        return redirect()->back();
     }
 
     public function createRatingCount(){
@@ -123,7 +123,7 @@ class RatingController extends Controller
             $rating_name = 'scam';
         }
         toast('Rated crypto as '.$rating_name. '','success')->position('top-end')->autoClose(2000);
-        return redirect('/home' );
+        return redirect()->back();
     }
 
 }
