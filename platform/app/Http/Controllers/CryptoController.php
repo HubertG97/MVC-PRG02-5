@@ -16,7 +16,10 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class CryptoController extends Controller
 {
+    //show crypto's that have been accepted by admin.
+
     public function index(){
+
         $visible_cryptos = Crypto::where([
             ['visible', '=', 1],
         ])->latest()->get();
@@ -26,6 +29,8 @@ class CryptoController extends Controller
         return view('home', ['visible_cryptos' => $visible_cryptos, 'classifications' => $classifications]);
     }
 
+    //admin page that shows all cryptos ordered by visibility.
+
     public function review(){
 
         $all_cryptos = Crypto::orderBy('visible')->latest()->get();
@@ -33,7 +38,10 @@ class CryptoController extends Controller
         return view('cryptos.review', ['all_cryptos' => $all_cryptos]);
     }
 
+    //view all cryptos that belong to the logged in user.
+
     public function userCrypto(){
+
         $classifications = Classification::all();
         $user_cryptos = Crypto::where([
             ['user_id', '=', Auth::id()],
@@ -42,17 +50,23 @@ class CryptoController extends Controller
         return view('cryptos.own', ['all_cryptos' => $user_cryptos, 'classifications' => $classifications]);
     }
 
+    //show crypto's of specific user.
+
     public function otherCrypto(User $user){
+
         $classifications = Classification::all();
         $other_crypto = Crypto::where([
-            ['user_id', '=', $user->id],
+            ['user_id', '=', $user->id], ['visible', '=', 1],
         ])->latest()->get();
+
         return view('cryptos.other', ['all_cryptos' => $other_crypto, 'classifications' => $classifications]);
     }
 
-    public function visibility(){
-        $crypto_id = request('crypto_id');
+    //toggle visibility of cryptos.
 
+    public function visibility(){
+
+        $crypto_id = request('crypto_id');
         $crypto = Crypto::where([
             ['id', '=', $crypto_id],
         ])->first();
@@ -64,16 +78,22 @@ class CryptoController extends Controller
         }else{
             $visibility_name = 'visible';
         }
+
         toast('Crypto successfully made '.$visibility_name. '','success')->position('top-end')->autoClose(3000);
+
         return $this->review();
 
     }
+
+    //create page of crypto's.
 
     public function create()
     {
         $allcryptos = Crypto::all();
         return view('cryptos.create', compact('allcryptos'));
     }
+
+    //store crypto in database also checks if already exists.
 
     public function store(){
 
@@ -109,7 +129,6 @@ class CryptoController extends Controller
             ['name', '=', request('name')],
         ])->get();
 
-
         if (count($existing_cryptos) === 0){
             $crypto->save();
             toast('Crypto successfully submitted!','success')->position('top-end')->autoClose(3000);
@@ -118,18 +137,25 @@ class CryptoController extends Controller
             alert()->error('Already exists');
             return redirect()->back();
         }
-
     }
+
+    //show crypto details page.
+
     public function show(Crypto $crypto){
 
         return view('cryptos.show', compact('crypto'));
     }
 
+    //show crypto edit page.
+
     public function edit(Crypto $crypto){
+
         $classifications = Classification::all();
         return view('cryptos.edit', compact('crypto', 'classifications'));
 
     }
+
+    //update database when posting the edited crypto.
 
     public function update(Crypto $crypto){
         $data = request()->validate([
@@ -159,6 +185,8 @@ class CryptoController extends Controller
         return redirect('cryptos/' . $crypto->id);
     }
 
+    //deleting crypto and it's rating and ratingCount table
+
     public function delete(Crypto $crypto){
         Rating::where('crypto_id', $crypto->id)->delete();
         RatingCount::where('crypto_id', $crypto->id)->delete();
@@ -166,6 +194,8 @@ class CryptoController extends Controller
 
         return redirect()->back();
     }
+
+    //filter crypto on classifications
 
     public function cryptoFilter(Request $request) {
         $classifications = Classification::all();
@@ -177,6 +207,8 @@ class CryptoController extends Controller
         };
         return view ('cryptos.results', compact('filteredcryptos', 'classifications'));
     }
+
+    //search on crypto's with search field
 
     public function cryptoSearch(Request $request){
         $classifications = Classification::all();

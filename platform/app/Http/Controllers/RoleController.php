@@ -10,6 +10,8 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class RoleController extends Controller
 {
+    //check if user has rated 3 crypto's to become author excluding admin
+
     public function rolePromotion(){
         $ratingResults = Rating::where([
             ['user_id', '=', Auth::id()],
@@ -22,7 +24,6 @@ class RoleController extends Controller
         }else{
             $isAdmin = false;
         }
-
 
         if($ratingCount === 3 && !$isAdmin) {
 

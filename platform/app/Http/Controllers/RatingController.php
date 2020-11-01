@@ -11,6 +11,9 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class RatingController extends Controller
 {
+
+    //creating a new rating and rating counter
+
     public function create(){
         $all_ratings = Rating::all();
         $checkRating = Rating::where([
@@ -21,7 +24,7 @@ class RatingController extends Controller
             ['crypto_id', '=', request('crypto_id')],
         ]);
 
-        //check if rating and rating count exists
+        //check if rating and rating count exists if not, creating one
         if ($checkRating->exists() && $checkRatingCount->exists()) {
 
 
@@ -48,7 +51,7 @@ class RatingController extends Controller
 
         return redirect()->back();
     }
-
+    //creating the rating count
     public function createRatingCount(){
         $ratingCount = new RatingCount();
         $ratingCount->crypto_id = request('crypto_id');
@@ -61,6 +64,7 @@ class RatingController extends Controller
             ['rating', '=', false],
         ])->get();
 
+        //update the count with the first rating given
         if($gemResults){
             $gemCount = count($gemResults);
         } else {
@@ -86,6 +90,8 @@ class RatingController extends Controller
         toast('Rated crypto as '.$rating_name. '','success')->position('top-end')->autoClose(2000);
     }
 
+    //update an existing rating
+
     public function update(Rating $rating){
         $rating->rating = request('checker');
         $rating->update();
@@ -95,8 +101,12 @@ class RatingController extends Controller
         return $rating;
     }
 
+    //update an existing rating count
+
     public function updateCount(Rating $rating){
         $promotionChecker = new RoleController();
+
+        //check if user is being promoted to author
         if($promotionChecker->rolePromotion() === true){
             Alert::success('You are now an author', 'Go to add crypto to add crypto yourself')->autoClose(5000);
         };

@@ -55,6 +55,7 @@ class User extends Authenticatable
         return $this->hasOne(Role::class);
     }
 
+    //check if role matches in middleware
     public function checkRole(String $role){
         $user_role = Role::where('id', $this->role_id)->value('name');
         if($role === $user_role){
@@ -65,11 +66,15 @@ class User extends Authenticatable
 
 
     }
+
+    //get role rame
+
     public function roleName(int $role_id){
         $user_role = Role::where('id', $role_id)->value('name');
         return $user_role;
     }
 
+    //get amount of posts by user
     public function postCount(){
         $posted_crypto = Crypto::where('user_id', $this->id)->get();
         $posted_count = count($posted_crypto);

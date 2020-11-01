@@ -15,6 +15,7 @@ class Role
      * @param \Closure $next
      * @param array $roles
      * @return mixed
+     * check if role of current user matches action with granted premission
      */
     public function handle($request, Closure $next, ...$roles)
     {
