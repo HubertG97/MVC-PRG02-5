@@ -4,6 +4,8 @@
 
 namespace App\Filters;
 
+//initialising classification filter
+
 class ClassificationFilter
 {
     public function filter($builder, $value)

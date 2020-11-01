@@ -7,6 +7,8 @@ namespace App\Filters;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
 
+//abstract class of filter
+
 abstract class AbstractFilter
 {
     protected $request;
