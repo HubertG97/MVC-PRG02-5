@@ -32,7 +32,7 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/home') }}">
-                    {{ config('app.name', 'Gem or Scam') }}
+                    Gem or Scam
                 </a>
                 <a class="navbar" href="{{ url('/cryptos/create/') }}">
                     Add Crypto
