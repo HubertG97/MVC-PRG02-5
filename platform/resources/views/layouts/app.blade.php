@@ -23,6 +23,7 @@
     <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 </head>
 <body>
 
@@ -38,6 +39,9 @@
                 </a>
                 <a class="navbar" href="{{ url('/classifications/create/') }}">
                     Add Classification
+                </a>
+                <a class="navbar" href="{{ url('/cryptos/own/') }}">
+                    My Crypto
                 </a>
                 <a class="navbar" href="{{ url('/cryptos/review') }}">
                     Review Crypto

@@ -6,6 +6,7 @@ use App\Classification;
 use App\Crypto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class ClassificationController extends Controller
 {
@@ -33,8 +34,8 @@ class ClassificationController extends Controller
         $classification->description = request('description');
         $classification->user_id = Auth::id();
         $classification->save();
-
-        return redirect('/classifications');
+        alert()->success('Classification successfully created!');
+        return redirect('/home');
     }
 
 

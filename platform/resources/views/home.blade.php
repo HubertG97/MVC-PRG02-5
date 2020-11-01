@@ -14,16 +14,22 @@
             <button class="btn-light px-3 rounded" type="submit">Search</button>
             @csrf
         </form>
+
         <div class="col-md-8">
             @foreach($visible_cryptos as $crypto)
                 <div class="flex flex-row bg-white rounded shadow p-3 mb-3">
                     <div style="background-image: url({{ asset('image/logo/' . $crypto->logo_url) }}); background-position:center; background-repeat: no-repeat; background-size: contain;" class="w-3/12 h-48"></div>
-                    <div class="w-7/12 text-center p-3">
-                        <h3>{{$crypto->name}} ({{$crypto->ticker}})</h3>
-                        <p>{{$crypto->description}}</p>
+                    <div class="w-7/12 p-3">
+                        <div class="flex flex-row justify-between"><h3 class="">{{$crypto->name}} ({{$crypto->ticker}})</h3><p><i>by <a href="/cryptos/other/{{$crypto->user_id}}">{{$crypto->User->name}}</a></i></p></div>
+                        <p class="multi-line">{{$crypto->description}}</p>
+                        <div class="flex flex-row">
+                            <button class="w-24 h-8 mb-1 bg-blue-500 text-white px-3 rounded mr-2" onclick="window.location.href='/cryptos/{{ $crypto->id }}/'">More info</button>
+                            <button class="w-24 h-8 mb-1 bg-yellow-500 text-white px-3 rounded" onclick="window.open('https://{{ $crypto->website }}','_blank')">Website</button>
+
+                        </div>
+
                     </div>
-                    <div class="w-2/12 flex items-center flex-column">
-                        <p><a href="/cryptos/{{ $crypto->id }}/edit">Edit</a></p>
+                    <div class="w-2/12 flex flex-col items-end justify-center">
                         <form method="post">
                             <input class="form-control mb-4 d-none" type="text" name="crypto_id" value="{{$crypto->id}}">
                             <input type="checkbox" class="form-control mb-4 d-none" name="checker" value=1 checked="checked">
@@ -42,6 +48,12 @@
 
             @endforeach
         </div>
+        <form action="/crypto-search" method="get" class="pb-5">
+            <input class="form-control mb-4" type="text" name="q">
+            <br>
+            <button class="btn-light px-3 rounded" type="submit">Search</button>
+            @csrf
+        </form>
     </div>
 </div>
 

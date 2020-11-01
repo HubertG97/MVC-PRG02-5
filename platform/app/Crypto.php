@@ -30,4 +30,9 @@ class Crypto extends Model
     {
         return (new CryptoFilter($request))->filter($builder);
     }
+
+    public function scopeSearch($query, $search)
+    {
+        return $query->where('name', 'LIKE', "%$search%");
+    }
 }

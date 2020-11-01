@@ -77,11 +77,12 @@ class RatingController extends Controller
         $ratingCount->scam_count = $scamCount;
         $ratingCount->save();
         $rating_boolean = request('rating');
-        if($rating_boolean == 1){
+        if($rating_boolean === 1){
             $rating_name = 'gem';
         }else {
             $rating_name = 'scam';
         }
+
         toast('Rated crypto as '.$rating_name. '','success')->position('top-end')->autoClose(2000);
     }
 
@@ -89,16 +90,16 @@ class RatingController extends Controller
         $rating->rating = request('checker');
         $rating->update();
         $this->updateCount($rating);
-        $promotionChecker = new RoleController();
-        if($promotionChecker->rolePromotion() === true){
-            Alert::success('You are now an author', 'Go to add crypto to add crypto yourself')->autoClose(5000);
-        };
+
 
         return $rating;
     }
 
     public function updateCount(Rating $rating){
-
+        $promotionChecker = new RoleController();
+        if($promotionChecker->rolePromotion() === true){
+            Alert::success('You are now an author', 'Go to add crypto to add crypto yourself')->autoClose(5000);
+        };
         $gemResults = Rating::where([
             ['crypto_id', '=', request('crypto_id')],
             ['rating', '=', true],

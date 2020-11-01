@@ -25,7 +25,7 @@
                             <td>{{$user->roleName($user->role_id)}}</td>
                             <td>{{$user->created_at}}</td>
                             <td>{{$user->postCount()}}</td>
-                            <td><a class="mr-1" href="/users/{{ $user->id }}/edit">Edit</a><a href="/users/{{ $user->id }}/delete">Delete</a></td>
+                            <td><a class="mr-1" href="/users/{{ $user->id }}/edit">Edit</a></td>
                         </tr>
                         @endforeach
 

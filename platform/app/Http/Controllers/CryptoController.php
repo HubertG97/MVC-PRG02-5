@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Classification;
 use App\Crypto;
-
+use App\Rating;
+use App\RatingCount;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Filters\CryptoFilter;
@@ -17,10 +19,9 @@ class CryptoController extends Controller
     public function index(){
         $visible_cryptos = Crypto::where([
             ['visible', '=', 1],
-        ])->get();
+        ])->latest()->get();
 
         $classifications = Classification::all();
-
 
         return view('home', ['visible_cryptos' => $visible_cryptos, 'classifications' => $classifications]);
     }
@@ -30,6 +31,23 @@ class CryptoController extends Controller
         $all_cryptos = Crypto::orderBy('visible')->latest()->get();
 
         return view('cryptos.review', ['all_cryptos' => $all_cryptos]);
+    }
+
+    public function userCrypto(){
+        $classifications = Classification::all();
+        $user_cryptos = Crypto::where([
+            ['user_id', '=', Auth::id()],
+        ])->latest()->get();
+
+        return view('cryptos.own', ['all_cryptos' => $user_cryptos, 'classifications' => $classifications]);
+    }
+
+    public function otherCrypto(User $user){
+        $classifications = Classification::all();
+        $other_crypto = Crypto::where([
+            ['user_id', '=', $user->id],
+        ])->latest()->get();
+        return view('cryptos.other', ['all_cryptos' => $other_crypto, 'classifications' => $classifications]);
     }
 
     public function visibility(){
@@ -86,10 +104,21 @@ class CryptoController extends Controller
         }else{
             $crypto->logo_url = 'no_image.png';
         }
-        $crypto->save();
-        $this->createRatingCount();
-        toast('Crypto successfully submitted!','success')->position('top-end')->autoClose(3000);
-        return redirect('/home');
+
+       $existing_cryptos = Crypto::where([
+            ['name', '=', request('name')],
+        ])->get();
+
+
+        if (count($existing_cryptos) === 0){
+            $crypto->save();
+            toast('Crypto successfully submitted!','success')->position('top-end')->autoClose(3000);
+            return redirect('/home');
+        }else{
+            alert()->error('Already exists');
+            return redirect()->back();
+        }
+
     }
     public function show(Crypto $crypto){
 
@@ -131,16 +160,35 @@ class CryptoController extends Controller
     }
 
     public function delete(Crypto $crypto){
+        Rating::where('crypto_id', $crypto->id)->delete();
+        RatingCount::where('crypto_id', $crypto->id)->delete();
         Crypto::where('id', $crypto->id)->delete();
 
-        return redirect('/home');
+        return redirect()->back();
     }
 
     public function cryptoFilter(Request $request) {
         $classifications = Classification::all();
-        $filteredcryptos = Crypto::filter($request)->get();
+        $filteredcryptos = Crypto::filter($request)->where([
+            ['visible', '=', 1],
+        ])->get();
+        if (count($filteredcryptos) === 0){
+            alert()->error('Nothing found');
+        };
         return view ('cryptos.results', compact('filteredcryptos', 'classifications'));
     }
 
+    public function cryptoSearch(Request $request){
+        $classifications = Classification::all();
+        $searchedcryptos = Crypto::query()
+            ->where('name', 'LIKE', "%{$request->q}%")
+            ->orWhere('ticker', 'LIKE', "%{$request->q}%")
+            ->get();
+
+        if (count($searchedcryptos) === 0){
+            alert()->error('Nothing found');
+        };
+        return view ('cryptos.results', compact('searchedcryptos', 'classifications'));
+    }
 
 }
